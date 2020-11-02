@@ -2,7 +2,8 @@
 """ Command Interpreter """
 
 
-import cmd, sys
+import cmd
+import sys
 import models
 
 
@@ -22,6 +23,7 @@ def errors(err):
         print("** attribute name missing **")
     elif err == "!value":
         print("** value missing **")
+
 
 def getobj(arg):
     """returns an instance by the key
@@ -144,20 +146,39 @@ class HBNBCommand(cmd.Cmd):
         if my_inst:
             if len(args) < 3:
                 errors("!att_name")
+                return
             if len(args) < 4:
                 errors("!value")
+                return
 
-            """ if args[3] is "created_at" or args[3] is "updated_at" or args[3] is "id": """
             if args[2] in ("created_at", "updated_at", "id"):
                 return
 
-            #mirar como arrojar condicion para que verifique si el tipo de dato es un str, int, float
-            # ya que args siempre es un string.. puedes ser con codigo ASCII
-            print(type(args[3]))
-            if type(args[3]) not in [int, float, str]:
+            if args[3][0] == '"':
+                i = 3
+                concat = args[3][1:]
+                i += 1
+                while i < len(args):
+                    if '"' in args[i]:
+                        concat += " " + args[i][:-1]
+                        break
+                    concat += " " + args[i]
+                    i += 1
+                if concat[-1] == '"':
+                    args[3] = concat[:-1]
+                else:
+                    args[3] = concat
 
-                my_inst.__dict__[args[2]] = args[3]
-                my_inst.save()
+            try:
+                convert = int(args[3])
+            except ValueError:
+                try:
+                    convert = float(args[3])
+                except ValueError:
+                    convert = args[3]
+
+            my_inst.__dict__[args[2]] = convert
+            my_inst.save()
 
     def help_quit(self):
         """ help quit command """
@@ -169,6 +190,7 @@ class HBNBCommand(cmd.Cmd):
 
     do_EOF = do_quit
     help_EOF = help_quit
+    # si hay un error con los checkers, crear el metodo do_EOF y help_EOF
 
 if __name__ == '__main__':
     interpreter = HBNBCommand()
