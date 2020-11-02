@@ -6,7 +6,7 @@
 import json
 import datetime
 from models.base_model import BaseModel
-
+from models.user import User
 
 class FileStorage():
     def __init__(self):
@@ -54,6 +54,7 @@ class FileStorage():
     def reload(self):
         """ deserializes the JSON file to """
         """if __file_path: """
+        #se debe modificar el bloque de codigo para poder implementarlo con User, mirar linea 64
         try:
             with open(self.__file_path, "r") as file1:
                 """ str_file = str(file1.read()) """

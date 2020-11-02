@@ -6,9 +6,8 @@ import cmd
 import sys
 import models
 
-
 baseModel = models.base_model.BaseModel
-
+userinst = models.user.User # nueva adiccion por la clase user
 
 def errors(err):
     if err == "!cl_name":
@@ -40,7 +39,8 @@ def getobj(arg):
         errors("!cl_name")
         return 0
 
-    if args[0] == "BaseModel":
+    #nueva adicion por la clase User
+    if args[0] == "BaseModel" or args[0] == "User":
         if len(args) < 2:
             errors("!id")
             return 0
@@ -70,6 +70,13 @@ class HBNBCommand(cmd.Cmd):
             new_inst = baseModel()
             new_inst.save()
             print(new_inst.id)
+
+        #nueva adiccion por el modulo user
+        if arg == "User":
+            new_inst = userinst()
+            new_inst.save()
+            print(new_inst.id)
+
         elif arg == "":
             errors("!cl_name")
         else:
@@ -98,7 +105,8 @@ class HBNBCommand(cmd.Cmd):
             errors("!cl_name")
             return
 
-        if args[0] == "BaseModel":
+        # nueva adiccion en la linea 108 por la clase User
+        if args[0] == "BaseModel" or args[0] == "User":
             if len(args) < 2:
                 errors("!id")
                 return
@@ -123,7 +131,8 @@ class HBNBCommand(cmd.Cmd):
         """
         args = arg.split()
 
-        if arg == "" or arg == "BaseModel":
+        # nueva adicion por la clase User en la linea 134
+        if arg == "" or arg == "BaseModel" or arg == "User":
             all_inst = models.storage.all()
             list_str = []
             for i in all_inst.values():
