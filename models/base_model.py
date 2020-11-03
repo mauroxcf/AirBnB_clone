@@ -1,20 +1,18 @@
 #!/usr/bin/python3
 """this module contains the Base CLass for the project Airbnb_clone
 """
-
-
 import uuid
 import datetime
 import models
-
-
-dati = datetime.datetime
 
 
 class BaseModel():
     """
     Base class for all class in airbnb_clone project
     """
+
+    dati = datetime.datetime
+
     def __init__(self, *args, **kwargs):
         """Constructor - initialization of new or existing instances
 
@@ -27,14 +25,15 @@ class BaseModel():
             for k, v in new_dict.items():
                 if k != "__class__":
                     if k == "created_at" or k == "updated_at":
-                        val = dati.strptime(v, "%Y-%m-%dT%H:%M:%S.%f")
+                        date_format = "%Y-%m-%dT%H:%M:%S.%f"
+                        val = BaseModel.dati.strptime(v, date_format)
                         self.__dict__[k] = val
                     else:
                         self.__dict__[k] = v
         else:
             self.id = str(uuid.uuid4())
-            self.created_at = dati.now()
-            self.updated_at = dati.now()
+            self.created_at = BaseModel.dati.now()
+            self.updated_at = BaseModel.dati.now()
             models.storage.new(self)
 
     def __str__(self):
@@ -49,7 +48,7 @@ class BaseModel():
     def save(self):
         """updates the update_at atrribute
         """
-        self.updated_at = dati.now()
+        self.updated_at = BaseModel.dati.now()
         models.storage.save()
 
     def to_dict(self):
