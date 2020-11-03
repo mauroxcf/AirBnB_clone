@@ -16,7 +16,11 @@ class BaseModel():
     Base class for all class in airbnb_clone project
     """
     def __init__(self, *args, **kwargs):
-        """Constructor
+        """Constructor - initialization of new or existing instances
+
+        Args:
+            args (list): nothing
+            kwargs (dict): one dict to create an object
         """
         if kwargs:
             new_dict = kwargs["data"]

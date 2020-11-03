@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""init file for models
+"""init file for models runs on startup
 """
 from models.engine import file_storage
 
