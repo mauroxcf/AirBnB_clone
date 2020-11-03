@@ -7,8 +7,26 @@ import json
 import datetime
 from models.base_model import BaseModel
 from models.user import User
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+
+class_names = {
+    "BaseModel": BaseModel,
+    "User": User,
+    "State": State,
+    "City": City,
+    "Amenity": Amenity,
+    "Place": Place,
+    "Review": Review
+}
+
 
 class FileStorage():
+    """ Class FileStorage """
+
     def __init__(self):
         """ constructor """
         self.__file_path = "file.json"
@@ -34,14 +52,6 @@ class FileStorage():
     def save(self):
         """saves the serialization of __objects in one file.json
         """
-        """ try:
-            with open(__file_path) as fl:
-                json_str = fl.read()
-                if json_str != '':
-                    temp_obj = json.loads(json_str)
-        except FileNotFoundError:
-            with open(__file_path, "w") as fl:
-                pass """
         with open(self.__file_path, "w") as fl:
             if not self.__objects:
                 fl.write("{}")
@@ -53,15 +63,17 @@ class FileStorage():
 
     def reload(self):
         """ deserializes the JSON file to """
-        """if __file_path: """
-        #se debe modificar el bloque de codigo para poder implementarlo con User, mirar linea 64
         try:
             with open(self.__file_path, "r") as file1:
                 """ str_file = str(file1.read()) """
                 temp = json.load(file1)
 
                 for key in temp.keys():
-                    new_instance = BaseModel(data=temp[key])
-                    self.__objects[key] = new_instance
+                    for key_cls in class_names.keys():
+                        if key_cls in key:
+                            name_cls = class_names[key_cls]
+                            new_instance = name_cls(data=temp[key])
+                            self.__objects[key] = new_instance
+                            break
         except FileNotFoundError:
             pass

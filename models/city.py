@@ -5,6 +5,7 @@
 
 from models.base_model import BaseModel
 
+
 class City(BaseModel):
     """ City class that contains certain info """
     state_id = ""

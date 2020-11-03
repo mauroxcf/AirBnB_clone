@@ -6,8 +6,24 @@ import cmd
 import sys
 import models
 
-baseModel = models.base_model.BaseModel
-userinst = models.user.User # nueva adiccion por la clase user
+BaseModel = models.base_model.BaseModel
+User = models.user.User
+State = models.state.State
+City = models.city.City
+Amenity = models.amenity.Amenity
+Place = models.place.Place
+Review = models.review.Review
+
+dict_class = {
+    "BaseModel": BaseModel,
+    "User": User,
+    "State": State,
+    "City": City,
+    "Amenity": Amenity,
+    "Place": Place,
+    "Review": Review
+}
+
 
 def errors(err):
     if err == "!cl_name":
@@ -39,8 +55,7 @@ def getobj(arg):
         errors("!cl_name")
         return 0
 
-    #nueva adicion por la clase User
-    if args[0] == "BaseModel" or args[0] == "User":
+    if args[0] in dict_class:
         if len(args) < 2:
             errors("!id")
             return 0
@@ -64,20 +79,21 @@ class HBNBCommand(cmd.Cmd):
         """ quit the command interpreter """
         return True
 
+    def do_EOF(self, arg):
+        """ if there is a End of File,
+        quit the command interpreter """
+        return True
+
     def do_create(self, arg):
-        """ create a instance of Basemodel """
-        if arg == "BaseModel":
-            new_inst = baseModel()
+        """ create a instance """
+        if arg in dict_class:
+            cls_name = dict_class[arg]
+            new_inst = cls_name()
             new_inst.save()
             print(new_inst.id)
+            return
 
-        #nueva adiccion por el modulo user
-        if arg == "User":
-            new_inst = userinst()
-            new_inst.save()
-            print(new_inst.id)
-
-        elif arg == "":
+        if arg == "":
             errors("!cl_name")
         else:
             errors("!cls_exist")
@@ -105,8 +121,7 @@ class HBNBCommand(cmd.Cmd):
             errors("!cl_name")
             return
 
-        # nueva adiccion en la linea 108 por la clase User
-        if args[0] == "BaseModel" or args[0] == "User":
+        if args[0] in dict_class:
             if len(args) < 2:
                 errors("!id")
                 return
@@ -131,12 +146,13 @@ class HBNBCommand(cmd.Cmd):
         """
         args = arg.split()
 
-        # nueva adicion por la clase User en la linea 134
-        if arg == "" or arg == "BaseModel" or arg == "User":
+        if arg == "" or args[0] in dict_class:
             all_inst = models.storage.all()
             list_str = []
-            for i in all_inst.values():
-                list_str.append(i.__str__())
+
+            for key, val in all_inst.items():
+                if arg in key:
+                    list_str.append(val.__str__())
             print(list_str)
         else:
             errors("!cls_exist")
@@ -163,18 +179,18 @@ class HBNBCommand(cmd.Cmd):
             if args[2] in ("created_at", "updated_at", "id"):
                 return
 
-            if args[3][0] == '"':
+            if '"' in args[3]:
                 i = 3
-                concat = args[3][1:]
+                concat = args[3].replace('"', "")
                 i += 1
                 while i < len(args):
                     if '"' in args[i]:
-                        concat += " " + args[i][:-1]
+                        concat += " " + args[i].replace('"', "")
                         break
                     concat += " " + args[i]
                     i += 1
-                if concat[-1] == '"':
-                    args[3] = concat[:-1]
+                if '"' in concat:
+                    args[3] = concat.replace('"', "")
                 else:
                     args[3] = concat
 
@@ -193,13 +209,34 @@ class HBNBCommand(cmd.Cmd):
         """ help quit command """
         print("Quit command to exit the program\n")
 
+    def help_create(self):
+        """ help create command """
+        print("Creates a object, saves it to the JSON file and prints the id")
+
+    def help_show(self):
+        """help show command """
+        print("Prints representation of an object based on the name and id")
+
+    def help_destroy(self):
+        """help destroy command """
+        print("Deletes an object based on the name and id")
+
+    def help_all(self):
+        """help all command """
+        print("prints all objects")
+
+    def help_update(self):
+        """ help update command """
+        txt = "updating the attribute"
+        print("updates the object by name and id adding or", txt)
+
+    def help_EOF(self):
+        """ help EOF command """
+        print("EOF exit the program\n")
+
     def emptyline(self):
         """ do nothing """
         pass
-
-    do_EOF = do_quit
-    help_EOF = help_quit
-    # si hay un error con los checkers, crear el metodo do_EOF y help_EOF
 
 if __name__ == '__main__':
     interpreter = HBNBCommand()

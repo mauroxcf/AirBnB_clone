@@ -5,6 +5,7 @@
 
 from models.base_model import BaseModel
 
+
 class Review(BaseModel):
     """ Review class that contains certain info """
     place_id = ""
