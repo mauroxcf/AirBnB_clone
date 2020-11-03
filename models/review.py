@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 """this module contains the review CLass for the project Airbnb_clone
 """
-
-
 from models.base_model import BaseModel
 
 
