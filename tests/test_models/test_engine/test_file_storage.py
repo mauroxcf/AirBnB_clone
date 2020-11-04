@@ -22,7 +22,7 @@ class TestFileStorage(unittest.TestCase):
     """
     storage = FileStorage()
     path = storage._FileStorage__file_path
-    bm_instance = BaseModel(data=my_dict)
+    bm_instance = BaseModel(**my_dict)
     storage.new(bm_instance)
 
     def test_module_docstring(self):

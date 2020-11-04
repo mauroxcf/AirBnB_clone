@@ -155,7 +155,7 @@ class TestBaseModel(unittest.TestCase):
                    '__class__': 'BaseModel', 'my_number': 89,
                    'updated_at': '2017-09-28T21:03:54.052302',
                    'name': 'Holberton'}
-        bm1 = BaseModel(data=my_dict)
+        bm1 = BaseModel(**my_dict)
         self.assertIsInstance(bm1, BaseModel)
         self.assertIsInstance(bm1.id, str)
         self.assertEqual(bm1.id, '56d43177-cc5f-4d6c-a0c1-e167f8c27337')
