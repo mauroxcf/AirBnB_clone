@@ -21,7 +21,7 @@ class BaseModel():
             kwargs (dict): one dict to create an object
         """
         if kwargs:
-            new_dict = kwargs["data"]
+            new_dict = kwargs
             for k, v in new_dict.items():
                 if k != "__class__":
                     if k == "created_at" or k == "updated_at":

@@ -72,7 +72,7 @@ class FileStorage():
                     for key_cls in class_names.keys():
                         if key_cls in key:
                             name_cls = class_names[key_cls]
-                            new_instance = name_cls(data=temp[key])
+                            new_instance = name_cls(**temp)
                             self.__objects[key] = new_instance
                             break
         except FileNotFoundError:
