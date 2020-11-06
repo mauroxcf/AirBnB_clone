@@ -16,18 +16,29 @@ $ ./console
 - Create :heavy_plus_sign:
 ```python
 (hbnb) create BaseModel       ->   Create a object. syntax : create <class name>
+# output:
+49faff9a-6318-451f-87b6-910505c55907
 ```
 - Show :clipboard:
 ```python
 (hbnb) show BaseModel 49faff9a-6318-451f-87b6-910505c55907      ->   show all the info of the object by the class name and ID. syntax : show <class name> <ID>
+# output:
+[BaseModel] (49faff9a-6318-451f-87b6-910505c55907) {'updated_at': datetime.datetime(2020, 11, 5, 20, 14, 23, 490068), 'id': '49faff9a-6318-451f-87b6-910505c55907', 'created_at': datetime.datetime(2020, 11, 5, 20, 14, 23, 490036)}
 ```
 - All :mag_right:
 ```python
 (hbnb) all BaseModel      ->   show all the info of the object class name. syntax : all <class name>
+# output:
+["[BaseModel] (49faff9a-6318-451f-87b6-910505c55907) {'updated_at': datetime.datetime(2020, 11, 5, 20, 14, 23, 490068), 'id': '49faff9a-6318-451f-87b6-910505c55907', 'created_at': datetime.datetime(2020, 11, 5, 20, 14, 23, 490036)}"]
 ```
 - Update :floppy_disk:
 ```python
 (hbnb) update BaseModel 49faff9a-6318-451f-87b6-910505c55907 first_name "Betty"    ->   update the object by adding a new atribbute and value of this. syntax : update <class name> <ID> <attribute> <attribute value>
+(hbnb) 
+(hbnb) 
+(hbnb) show BaseModel 49faff9a-6318-451f-87b6-910505c55907      ->   show all the info of the object by the class name and ID. syntax : show <class name> <ID>
+# output:
+[BaseModel] (49faff9a-6318-451f-87b6-910505c55907) {'first_name': 'Betty', 'updated_at': datetime.datetime(2020, 11, 5, 20, 14, 23, 490068), 'id': '49faff9a-6318-451f-87b6-910505c55907', 'created_at': datetime.datetime(2020, 11, 5, 20, 14, 23, 490036)}
 ```
 - Destroy :boom:
 ```python
@@ -36,6 +47,8 @@ $ ./console
 - Help :question:
 ```python
 (hbnb) help create      ->   display info about the command. syntax : help <command>
+# output:
+Creates a object, saves it to the JSON file and prints the id
 ```
 - Quit :x:
 ```python
@@ -44,5 +57,5 @@ $ ./console
 
 
 ## Made by
-**Francisco Guzmán** - Twitter [@I7RANKI](https://twitter.com/I7RANKI) - Github [I7RANKI]("https://github.com/I7RANK") :snake: :guitar:
-**Mauricio Contreras** - Twitter [@MauroJCF]("https://twitter.com/MauroJCF") - Github [mauroxcf]("https://github.com/mauroxcf") :snake:
+**Francisco Guzmán** - Twitter [@I7RANKI](https://twitter.com/I7RANKI) - Github [I7RANKI](https://github.com/I7RANK) :snake: :guitar:  
+**Mauricio Contreras** - Twitter [@MauroJCF](https://twitter.com/MauroJCF) - Github [mauroxcf](https://github.com/mauroxcf) :snake:
