@@ -30,11 +30,13 @@
     height:100%;
     width: 25%;
     border-right: solid #DDDDDD 1px;
+    z-index: 2;
 }
 
 .amenities{
     height:100%;
     width: 25%;
+    z-index: 2;
 }
 
 h3{
